@@ -14,7 +14,10 @@ public class MeshGenerator : MonoBehaviour {
     public float falloffBlend;
     public float heightMultiplier;
 
-    public Material material;
+    private Color[] colorMap;
+    public GameObject tree;
+    public GameObject stone;
+    public RegionGenerator region;
 
     void OnEnable() {
         Generate();
@@ -30,13 +33,16 @@ public class MeshGenerator : MonoBehaviour {
         Mesh mesh = new Mesh { name = "Procedural Terrain" };
 
         // for meshes which have more that 65,000 vertices
-        // mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
         Vector3[] vertices  = new Vector3[( xSize + 1 ) * ( zSize + 1 )];
         int[] triangles     = new int[xSize * zSize * 6];
         Vector2[] uv        = new Vector2[vertices.Length];
         Vector4[] tangents  = new Vector4[vertices.Length];
         Vector4 tangent     = new Vector4( 1, 0, 0, 1 );
+
+        colorMap = new Color[( xSize + 1 ) * ( zSize + 1 )];
+        float[,] heightMap = new float[xSize + 1, zSize + 1];
 
         for( int i = 0, z = 0; z < zSize + 1; z++ ) {
             for( int x = 0; x < xSize + 1; x++ ) {
@@ -45,12 +51,37 @@ public class MeshGenerator : MonoBehaviour {
                 float finalHeight = Mathf.Clamp01( noise - falloff );
                 float y = finalHeight * heightMultiplier;
 
-                material.color = Color.Lerp( Color.black, Color.white, y );
+                heightMap[x, z] = finalHeight;
+
+                if( y < 0.33 )
+                    colorMap[i] = Color.blue;
+                else if( y < 0.66 )
+                    colorMap[i] = Color.green;
+                else
+                    colorMap[i] = new Color( 245, 209, 151 );
 
                 vertices[i] = new Vector3( x, y, z );
                 uv[i] = new Vector2( (float)x / xSize, (float)z / zSize );
                 tangents[i] = tangent;
                 i++;
+            }
+        }
+
+        RegionType[,] regionMap = region.Generate( heightMap );
+        for( int z = 0; z < zSize + 1; z++ ) {
+            for( int x = 0; x < xSize + 1; x++ ) {
+                RegionType region = regionMap[x, z];
+
+                if( region == RegionType.Trees ) {
+                    if( Random.Range( 0f, 1f ) < 0.1f ) {
+                        Instantiate( tree, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity );
+                    }
+                }
+                else if( regionMap[x, z] == RegionType.Stone ) {
+                    if( Random.Range( 0f, 1f ) < 0.1f ) {
+                        Instantiate( stone, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity );
+                    }
+                }
             }
         }
 
@@ -73,5 +104,8 @@ public class MeshGenerator : MonoBehaviour {
 
         GetComponent<MeshFilter>().mesh = mesh;
         GetComponent<MeshCollider>().sharedMesh = mesh;
+
+        Texture2D texture = TextureGenerator.TextureFromColorMap( colorMap, xSize + 1, zSize + 1 );
+        GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
     }
 }
