@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &151297617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,14 +469,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSize: 500
   zSize: 500
-  seed: 123
+  seed: 45367346
   scale: 7
   octaves: 4
   persistence: 1.66
   lacunarity: 1.03
   falloffExponent: 4
   falloffBlend: 0.5
-  heightMultiplier: 2
+  heightMultiplier: 15
   tree: {fileID: 104588, guid: 702740a5e4ac1ee40a1888d3b62faa91, type: 3}
   stone: {fileID: 909046074782949636, guid: 802b9f2740e07dd46a8a9b2e4575dad2, type: 3}
   region: {fileID: 151297617}

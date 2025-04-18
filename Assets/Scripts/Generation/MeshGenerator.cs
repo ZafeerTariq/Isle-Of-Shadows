@@ -42,36 +42,25 @@ public class MeshGenerator : MonoBehaviour {
         Vector4 tangent     = new Vector4( 1, 0, 0, 1 );
 
         colorMap = new Color[( xSize + 1 ) * ( zSize + 1 )];
-        float[,] heightMap = new float[xSize + 1, zSize + 1];
+        float[,] heightMap = TerrainGenerator.Generate( xSize + 1, zSize + 1, seed, scale, octaves, persistence, lacunarity, falloffExponent, falloffExponent );
+        RegionType[,] regionMap = region.Generate( heightMap );
 
         for( int i = 0, z = 0; z < zSize + 1; z++ ) {
             for( int x = 0; x < xSize + 1; x++ ) {
-                float noise = Noise.GeneratePerlinNoise( x / (float)( xSize + 1 ), z / (float)( zSize + 1 ), scale, octaves, persistence, lacunarity, seed );
-                float falloff = Noise.EvaluateFalloff( x, z, xSize + 1, zSize + 1, falloffExponent, falloffBlend );
-                float finalHeight = Mathf.Clamp01( noise - falloff );
-                float y = finalHeight * heightMultiplier;
-
-                heightMap[x, z] = finalHeight;
-
-                if( y < 0.33 )
-                    colorMap[i] = Color.blue;
-                else if( y < 0.66 )
-                    colorMap[i] = Color.green;
-                else
-                    colorMap[i] = new Color( 245, 209, 151 );
+                float y = heightMap[x, z] * heightMultiplier;
 
                 vertices[i] = new Vector3( x, y, z );
                 uv[i] = new Vector2( (float)x / xSize, (float)z / zSize );
                 tangents[i] = tangent;
-                i++;
-            }
-        }
 
-        RegionType[,] regionMap = region.Generate( heightMap );
-        for( int z = 0; z < zSize + 1; z++ ) {
-            for( int x = 0; x < xSize + 1; x++ ) {
+                if( heightMap[x, z] < 0.1f )
+                    colorMap[i] = Color.blue;
+                else if( heightMap[x, z] < 0.66f )
+                    colorMap[i] = Color.green;
+                else
+                    colorMap[i] = new Color( 245, 209, 151 );
+
                 RegionType region = regionMap[x, z];
-
                 if( region == RegionType.Trees ) {
                     if( Random.Range( 0f, 1f ) < 0.1f ) {
                         Instantiate( tree, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity );
@@ -82,6 +71,8 @@ public class MeshGenerator : MonoBehaviour {
                         Instantiate( stone, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity );
                     }
                 }
+
+                i++;
             }
         }
 
