@@ -14,10 +14,15 @@ public class MeshGenerator : MonoBehaviour {
     public float falloffBlend;
     public float heightMultiplier;
 
-    private Color[] colorMap;
     public GameObject tree;
     public GameObject stone;
     public RegionGenerator region;
+
+    private Color[] colorMap;
+    private Color waterColor    = new Color( 0f, 0.349f, 0.702f );
+    private Color sandColor     = new Color( 0.918f, 0.745f, 0.459f );
+    private Color grassColor    = new Color( 0.1f, 0.45f, 0.1f );
+    private Color stoneColor    = new Color( 0.5f, 0.5f, 0.5f );
 
     void OnEnable() {
         Generate();
@@ -25,6 +30,9 @@ public class MeshGenerator : MonoBehaviour {
 
     void Update() {
         if( Input.GetKeyDown( KeyCode.R ) ) {
+            foreach( Transform child in transform ) {
+                Destroy( child.gameObject );
+            }
             Generate();
         }
     }
@@ -33,7 +41,7 @@ public class MeshGenerator : MonoBehaviour {
         Mesh mesh = new Mesh { name = "Procedural Terrain" };
 
         // for meshes which have more that 65,000 vertices
-        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        // mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
         Vector3[] vertices  = new Vector3[( xSize + 1 ) * ( zSize + 1 )];
         int[] triangles     = new int[xSize * zSize * 6];
@@ -53,25 +61,30 @@ public class MeshGenerator : MonoBehaviour {
                 uv[i] = new Vector2( (float)x / xSize, (float)z / zSize );
                 tangents[i] = tangent;
 
+                Color vertexColor;
                 if( heightMap[x, z] < 0.1f )
-                    colorMap[i] = Color.blue;
-                else if( heightMap[x, z] < 0.66f )
-                    colorMap[i] = Color.green;
+                    vertexColor = waterColor;
                 else
-                    colorMap[i] = new Color( 245, 209, 151 );
+                    vertexColor = sandColor;
 
                 RegionType region = regionMap[x, z];
                 if( region == RegionType.Trees ) {
                     if( Random.Range( 0f, 1f ) < 0.1f ) {
-                        Instantiate( tree, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity );
+                        Instantiate( tree, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity, transform );
                     }
+                    vertexColor = grassColor;
                 }
-                else if( regionMap[x, z] == RegionType.Stone ) {
+                else if( region == RegionType.Stone ) {
                     if( Random.Range( 0f, 1f ) < 0.1f ) {
-                        Instantiate( stone, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity );
+                        Instantiate( stone, new Vector3( x, heightMap[x, z] * heightMultiplier, z ), Quaternion.identity, transform );
                     }
+                    vertexColor = stoneColor;
+                }
+                else if( region == RegionType.Grass ) {
+                    vertexColor = new Color( 0.2f, 0.5f, 0.2f );
                 }
 
+                colorMap[i] = vertexColor;
                 i++;
             }
         }
@@ -91,12 +104,13 @@ public class MeshGenerator : MonoBehaviour {
         mesh.triangles = triangles;
         mesh.uv = uv;
         mesh.tangents = tangents;
+        mesh.colors = colorMap;
         mesh.RecalculateNormals();
 
         GetComponent<MeshFilter>().mesh = mesh;
         GetComponent<MeshCollider>().sharedMesh = mesh;
 
-        Texture2D texture = TextureGenerator.TextureFromColorMap( colorMap, xSize + 1, zSize + 1 );
-        GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
+        // Texture2D texture = TextureGenerator.TextureFromColorMap( colorMap, xSize + 1, zSize + 1 );
+        // GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
     }
 }

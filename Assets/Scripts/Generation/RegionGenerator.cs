@@ -19,18 +19,6 @@ public class RegionGenerator : MonoBehaviour {
     public GameObject tree;
 
     private Color[] colorMap;
-    private Vector3 worldPos;
-
-	void OnEnable() {
-        worldPos = new Vector3( -xSize / 2f, 0, -zSize / 2f );
-		Generate();
-	}
-
-    void Update() {
-        if( Input.GetKeyDown( KeyCode.R ) ) {
-            Generate();
-        }
-    }
 
     public RegionType[,] Generate() {
         RegionType[,] regionMap = new RegionType[xSize + 1, zSize + 1];
