@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour {
             dir += Vector3.right;
         }
 
-        Vector3 velocity = dir.normalized * speed;
+        Vector3 rotatedDir = Matrix4x4.Rotate( Quaternion.Euler( 0, 45, 0 ) ).MultiplyPoint3x4( dir.normalized );
+        Vector3 velocity = rotatedDir * speed;
         rb.velocity = new Vector3( velocity.x, rb.velocity.y, velocity.z );
+
     }
 }
