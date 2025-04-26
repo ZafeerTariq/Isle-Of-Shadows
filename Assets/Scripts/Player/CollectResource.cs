@@ -5,19 +5,23 @@ public class CollectResource : MonoBehaviour {
 	[Range( 0, 360)] public float fieldOfView = 60f;
 	public LayerMask resourceLayer;
 
-	private ICollectable currentTarget = null;
+	private ICollectable	currentCollectable = null;
+	private IHighlightable	currentHighlightable = null;
 
 	void Update() {
 		UpdateTarget();
 
-		if( Input.GetKeyDown( KeyCode.E ) && currentTarget != null ) {
-			currentTarget.Collect();
-			currentTarget = null;
+		if( Input.GetKeyDown( KeyCode.E ) && currentCollectable != null ) {
+			currentCollectable.Collect();
+			currentCollectable = null;
+			currentHighlightable = null;
 		}
 	}
 
 	void UpdateTarget() {
 		float bestScore = float.MinValue;
+		ICollectable	newCollectable = currentCollectable;
+		IHighlightable	newHighlightable = null;
 
 		Collider[] colliders = Physics.OverlapSphere( transform.position, collectRange, resourceLayer );
 		foreach( Collider collider in colliders ) {
@@ -32,11 +36,18 @@ public class CollectResource : MonoBehaviour {
 
                 if( score > bestScore ) {
                     bestScore = score;
-					currentTarget = collider.GetComponent<ICollectable>();
+					newCollectable = collider.GetComponent<ICollectable>();
+					newHighlightable = collider.GetComponent<IHighlightable>();
                 }
             }
 		}
 
+		if( newCollectable != currentCollectable ) {
+			currentCollectable = newCollectable;
 
+			if( currentHighlightable != null ) currentHighlightable.Unhighlight();
+			currentHighlightable = newHighlightable;
+			currentHighlightable.Highlight();
+		}
 	}
 }

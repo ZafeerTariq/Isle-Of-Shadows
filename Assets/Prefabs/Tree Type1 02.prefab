@@ -119,3 +119,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f9941bf42ad6842942fb26337d36e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMat: {fileID: 2100000, guid: 2e8b49049af48bb4e943bc1af44f0f2b, type: 2}
+  originalMat: {fileID: 2100000, guid: fe3e3b8ebc1a32647b48b7ea88f534a8, type: 2}
