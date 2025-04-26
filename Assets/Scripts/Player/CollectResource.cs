@@ -20,7 +20,7 @@ public class CollectResource : MonoBehaviour {
 
 	void UpdateTarget() {
 		float bestScore = float.MinValue;
-		ICollectable	newCollectable = currentCollectable;
+		ICollectable	newCollectable = null;
 		IHighlightable	newHighlightable = null;
 
 		Collider[] colliders = Physics.OverlapSphere( transform.position, collectRange, resourceLayer );
@@ -42,12 +42,10 @@ public class CollectResource : MonoBehaviour {
             }
 		}
 
-		if( newCollectable != currentCollectable ) {
-			currentCollectable = newCollectable;
+		currentCollectable = newCollectable;
 
-			if( currentHighlightable != null ) currentHighlightable.Unhighlight();
-			currentHighlightable = newHighlightable;
-			currentHighlightable.Highlight();
-		}
+		if( currentHighlightable != null ) currentHighlightable.Unhighlight();
+		currentHighlightable = newHighlightable;
+		if( currentHighlightable != null ) currentHighlightable.Highlight();
 	}
 }
