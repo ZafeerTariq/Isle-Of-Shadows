@@ -16,8 +16,6 @@ public class RegionGenerator : MonoBehaviour {
     public float persistence;
     public float lacunarity;
 
-    public GameObject tree;
-
     private Color[] colorMap;
 
     public RegionType[,] Generate() {

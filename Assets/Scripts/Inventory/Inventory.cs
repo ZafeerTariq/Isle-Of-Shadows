@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
@@ -17,5 +18,14 @@ public class Inventory : MonoBehaviour {
 
 	public int GetAmount( ResourceType resource ) {
 		return inventory[resource];
+	}
+
+	public bool TryRemoveResource( ResourceType resource, int amount ) {
+		if( amount <= inventory[resource] ) {
+			inventory[resource] -= amount;
+			Debug.Log( resource.ToString() + " : " + inventory[resource].ToString() );
+			return true;
+		}
+		return false;
 	}
 }
