@@ -1,11 +1,14 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float speed = 10f;
     private Rigidbody rb;
+    private Animator animator;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Update() {
@@ -27,5 +30,6 @@ public class PlayerController : MonoBehaviour {
         Vector3 velocity = rotatedDir * speed;
         rb.velocity = new Vector3( velocity.x, rb.velocity.y, velocity.z );
 
+        animator.SetBool( "isWalking", rb.velocity.x != 0 || rb.velocity.z != 0 );
     }
 }
