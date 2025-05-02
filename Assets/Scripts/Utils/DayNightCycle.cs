@@ -16,7 +16,7 @@ public class DayNightCycle : MonoBehaviour {
 			time = 0f;
 		}
 
-		sun.transform.rotation = Quaternion.Euler( (time * 360f) - 90f, 170f, 0f );
+		sun.transform.rotation = Quaternion.Euler( (time * 360f) + 10f, 170f, 0f );
 
 		sun.color = Color.Lerp( start, end, time );
         sun.intensity = lightIntensityOverDay.Evaluate( time );
