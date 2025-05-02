@@ -18,14 +18,41 @@ public class MeshGenerator : MonoBehaviour {
 	public GameObject stone;
 	public RegionGenerator region;
 
-	private Color[] colorMap;
 	private Color waterColor    = new Color( 0f, 0.349f, 0.702f );
 	private Color sandColor     = new Color( 0.918f, 0.745f, 0.459f );
 	private Color treeColor     = new Color( 0.1f, 0.45f, 0.1f );
 	private Color grassColor    = new Color( 0.2f, 0.5f, 0.2f );
 	private Color stoneColor    = new Color( 0.5f, 0.5f, 0.5f );
 
+	public Gradient colorGradient;
+
 	void OnEnable() {
+		colorGradient = new Gradient();
+
+		GradientColorKey[] colorKeys = new GradientColorKey[5];
+		colorKeys[0].color	= waterColor;
+		colorKeys[0].time	= 0.0f;
+
+		colorKeys[1].color	= sandColor;
+		colorKeys[1].time	= 0.1f;
+
+		colorKeys[2].color	= grassColor;
+		colorKeys[2].time	= 0.5f;
+
+		colorKeys[3].color	= treeColor;
+		colorKeys[3].time	= 0.75f;
+
+		colorKeys[4].color	= stoneColor;
+		colorKeys[4].time	= 1.0f;
+
+		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
+		alphaKeys[0].alpha = 1.0f;
+		alphaKeys[0].time = 0.0f;
+		alphaKeys[1].alpha = 1.0f;
+		alphaKeys[1].time = 1.0f;
+
+		colorGradient.SetKeys( colorKeys, alphaKeys );
+
 		Generate();
 	}
 
@@ -48,9 +75,9 @@ public class MeshGenerator : MonoBehaviour {
 		int[] triangles     = new int[xSize * zSize * 6];
 		Vector2[] uv        = new Vector2[vertices.Length];
 		Vector4[] tangents  = new Vector4[vertices.Length];
+		Color[] colorMap	= new Color[( xSize + 1 ) * ( zSize + 1 )];
 		Vector4 tangent     = new Vector4( 1, 0, 0, 1 );
 
-		colorMap = new Color[( xSize + 1 ) * ( zSize + 1 )];
 		float[,] heightMap = TerrainGenerator.Generate( xSize + 1, zSize + 1, seed, scale, octaves, persistence, lacunarity, falloffExponent, falloffExponent );
 		RegionType[,] regionMap = region.Generate( heightMap );
 
@@ -62,30 +89,19 @@ public class MeshGenerator : MonoBehaviour {
 				uv[i] = new Vector2( (float)x / xSize, (float)z / zSize );
 				tangents[i] = tangent;
 
-                Color vertexColor;
-                if( heightMap[x, z] < 0.1f )
-                    vertexColor = waterColor;
-                else
-                    vertexColor = sandColor;
-
 				RegionType region = regionMap[x, z];
 				if( region == RegionType.Trees ) {
 					if( Random.Range( 0f, 1f ) < 0.1f ) {
 						Instantiate( tree, new Vector3( x, y, z ), Quaternion.identity, transform );
 					}
-					vertexColor = treeColor;
 				}
 				else if( region == RegionType.Stone ) {
 					if( Random.Range( 0f, 1f ) < 0.1f ) {
 						Instantiate( stone, new Vector3( x, y, z ), Quaternion.identity, transform );
 					}
-					vertexColor = stoneColor;
-				}
-				else if( region == RegionType.Grass ) {
-					vertexColor = grassColor;
 				}
 
-				colorMap[i] = vertexColor;
+				colorMap[i] = colorGradient.Evaluate( heightMap[x, z] );
 				i++;
 			}
 		}

@@ -71,7 +71,7 @@ public class RegionGenerator : MonoBehaviour {
                 else if( noise < 0.33f ) {
                     region = RegionType.Trees;
                 }
-                else if( distanceFromCenter < 0.3f && height > 0.6f ) {
+                else if( distanceFromCenter < 0.3f && height > 0.6f || noise > 0.66f ) {
                     region = RegionType.Stone;
                 }
 
