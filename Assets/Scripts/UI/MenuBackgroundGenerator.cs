@@ -17,6 +17,7 @@ public class MenuBackgroundGenerator : MonoBehaviour {
 	private Color[] colorMap;
 
 	void Start() {
+		noiseData.seed = Random.Range( 0, int.MaxValue );
 		Generate();
 	}
 
