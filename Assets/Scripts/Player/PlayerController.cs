@@ -31,6 +31,12 @@ public class PlayerController : MonoBehaviour {
         Vector3 velocity = rotatedDir * speed;
         rb.velocity = new Vector3( velocity.x, rb.velocity.y, velocity.z );
 
+        Vector3 flatVelocity = new Vector3( rb.velocity.x, 0, rb.velocity.z );
+		if( flatVelocity.sqrMagnitude > 0.01f ) {
+			Quaternion targetRotation = Quaternion.LookRotation( flatVelocity );
+			transform.rotation = Quaternion.Slerp( transform.rotation, targetRotation, Time.deltaTime * 5f );
+		}
+
         animator.SetBool( "isWalking", rb.velocity.x != 0 || rb.velocity.z != 0 );
     }
 }
