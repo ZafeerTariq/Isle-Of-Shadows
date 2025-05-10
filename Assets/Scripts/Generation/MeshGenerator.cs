@@ -4,11 +4,7 @@ using UnityEngine;
 public class MeshGenerator : MonoBehaviour {
 	public int xSize = 20;
 	public int zSize = 20;
-	public int seed;
-	public float scale;
-	public int octaves;
-	public float persistence;
-	public float lacunarity;
+	public NoiseDataScriptableObject noiseData;
 
 	public float falloffExponent;
 	public float falloffBlend;
@@ -56,15 +52,6 @@ public class MeshGenerator : MonoBehaviour {
 		Generate();
 	}
 
-	void Update() {
-		if( Input.GetKeyDown( KeyCode.R ) ) {
-			foreach( Transform child in transform ) {
-				Destroy( child.gameObject );
-			}
-			Generate();
-		}
-	}
-
 	private void Generate() {
 		Mesh mesh = new Mesh { name = "Procedural Terrain" };
 
@@ -78,7 +65,7 @@ public class MeshGenerator : MonoBehaviour {
 		Color[] colorMap	= new Color[( xSize + 1 ) * ( zSize + 1 )];
 		Vector4 tangent     = new Vector4( 1, 0, 0, 1 );
 
-		float[,] heightMap = TerrainGenerator.Generate( xSize + 1, zSize + 1, seed, scale, octaves, persistence, lacunarity, falloffExponent, falloffExponent );
+		float[,] heightMap = TerrainGenerator.Generate( xSize + 1, zSize + 1, noiseData, falloffExponent, falloffExponent );
 		RegionType[,] regionMap = region.Generate( heightMap );
 
 		for( int i = 0, z = 0; z < zSize + 1; z++ ) {

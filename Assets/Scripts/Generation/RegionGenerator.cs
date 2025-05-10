@@ -10,11 +10,7 @@ public enum RegionType {
 public class RegionGenerator : MonoBehaviour {
     public int xSize = 20;
     public int zSize = 20;
-    public int seed;
-    public float scale;
-    public int octaves;
-    public float persistence;
-    public float lacunarity;
+    public NoiseDataScriptableObject noiseData;
 
     private Color[] colorMap;
 
@@ -24,7 +20,15 @@ public class RegionGenerator : MonoBehaviour {
 
         for( int i = 0, z = 0; z < zSize + 1; z++ ) {
             for( int x = 0; x < xSize + 1; x++ ) {
-                float y = Noise.GeneratePerlinNoise( x / (float)( xSize + 1 ), z / (float)( zSize + 1 ), scale, octaves, persistence, lacunarity, seed );
+                float y = Noise.GeneratePerlinNoise(
+                    x / (float)( xSize + 1 ),
+                    z / (float)( zSize + 1 ),
+                    noiseData.scale,
+                    noiseData.octaves,
+                    noiseData.persistence,
+                    noiseData.lacunarity,
+                    noiseData.seed
+                );
 
                 if( y < 0.33f ) {
                     colorMap[i] = Color.blue;
@@ -54,7 +58,15 @@ public class RegionGenerator : MonoBehaviour {
 
         for (int z = 0; z <= zSize; z++) {
             for (int x = 0; x <= xSize; x++) {
-                float noise = Noise.GeneratePerlinNoise( x / (float)( xSize + 1 ), z / (float)( zSize + 1 ), scale, octaves, persistence, lacunarity, seed );
+                float noise = Noise.GeneratePerlinNoise(
+                    x / (float)( xSize + 1 ),
+                    z / (float)( zSize + 1 ),
+                    noiseData.scale,
+                    noiseData.octaves,
+                    noiseData.persistence,
+                    noiseData.lacunarity,
+                    noiseData.seed
+                );
                 float height = heightMap[x, z];
 
                 float nx = (float)x / xSize * 2 - 1;

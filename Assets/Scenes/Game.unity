@@ -156,11 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSize: 200
   zSize: 200
-  seed: 123
-  scale: 2
-  octaves: 2
-  persistence: 0.18
-  lacunarity: 0.56
+  noiseData: {fileID: 11400000, guid: e4bb87f5f260ecb4c80405f5f3835dd9, type: 2}
 --- !u!64 &151297618
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -786,11 +782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xSize: 200
   zSize: 200
-  seed: 6187321
-  scale: 7
-  octaves: 4
-  persistence: 1.66
-  lacunarity: 1.03
+  noiseData: {fileID: 11400000, guid: c096498b667aa99409ec6acaa99e01af, type: 2}
   falloffExponent: 4
   falloffBlend: 0.5
   heightMultiplier: 7
