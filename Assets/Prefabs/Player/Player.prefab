@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2bcd799ce78a4249b71bdb403f92b54, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4232006675375087288}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2bcd799ce78a4249b71bdb403f92b54, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5942083694091490272}
   m_SourcePrefab: {fileID: 100100000, guid: c2bcd799ce78a4249b71bdb403f92b54, type: 3}
 --- !u!1 &3740392392030347727 stripped
 GameObject:
@@ -182,3 +185,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5942083694091490272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3740392392030347727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cdd81025e3b505458abd7e76c07ea8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damage: 10
+  attackCooldown: 0.7
+  healthBarImage: {fileID: 0}
