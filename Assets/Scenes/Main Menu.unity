@@ -751,8 +751,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d2fbee80a40aa42bf815ed8825d431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1280
-  height: 720
+  width: 800
+  height: 450
   noiseData: {fileID: 11400000, guid: db227d39efc20dd42be05f264cfc6f84, type: 2}
   image: {fileID: 1227088106}
   water: {r: 0.13034001, g: 0.5905331, b: 0.9528302, a: 1}
@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

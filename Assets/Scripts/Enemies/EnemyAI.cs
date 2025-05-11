@@ -20,9 +20,21 @@ public class EnemyAI : MonoBehaviour {
 	private Vector3 targetPos;
 	private bool movingToTarget = true;
 
+	public float attackCooldown;
+	private float timeSinceLastAttack = 0;
+	public int health;
+	public int damage;
+	private bool isAlive;
+
+	private Animator animator;
+
+	private PlayerCombat playerCombat;
+
 	void Awake() {
 		player = GameObject.Find( "Player" );
-		rb = GetComponent<Rigidbody>();
+		playerCombat = player.GetComponent<PlayerCombat>();
+		rb = GetComponentInChildren<Rigidbody>();
+		animator = GetComponentInChildren<Animator>();
 
 		Vector3 patrolDir = new Vector3( Random.Range( 0f, 1f), 0, Random.Range( 0f, 1f ) ).normalized;
 		startPos  = transform.position;
@@ -30,11 +42,13 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 	void Update() {
+		timeSinceLastAttack += Time.deltaTime;
+
 		Vector3 velocity = Vector3.zero;
 		Vector3 distance = player.transform.position - transform.position;
 
 		if( distance.magnitude <= attackDistance ) {
-			// attack
+			TryAttack();
 		}
 		else if( distance.magnitude <= engagementDistance ) {
 			Vector3 dir = distance.normalized;
@@ -83,4 +97,16 @@ public class EnemyAI : MonoBehaviour {
 		}
 	}
 
+	private void TryAttack() {
+		if( timeSinceLastAttack >= attackCooldown ) {
+			playerCombat.TakeDamage( damage );
+			timeSinceLastAttack = 0f;
+			animator.SetTrigger( "Attack" );
+		}
+	}
+
+	public void TakeDamage( int damage ) {
+		health -= damage;
+		if( health <= 0 ) isAlive = false;
+	}
 }
