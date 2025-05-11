@@ -4,6 +4,9 @@ using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour {
 	[SerializeField] private int health;
 	[SerializeField] private int damage;
+	public int attackRange;
+	public LayerMask enemyLayer;
+
 	private bool isAlive;
 
 	public float attackCooldown;
@@ -18,6 +21,7 @@ public class PlayerCombat : MonoBehaviour {
 		isAlive = true;
 		timeSinceLastAttack = 0f;
 		healthBarMat = healthBarImage.material;
+		healthBarMat.SetFloat( "_Health", health );
         animator = GetComponent<Animator>();
 	}
 
@@ -36,9 +40,12 @@ public class PlayerCombat : MonoBehaviour {
 
 	private void TryAttack() {
 		if( timeSinceLastAttack >= attackCooldown ) {
-			Debug.Log( "Player attack" );
 			timeSinceLastAttack = 0f;
 			animator.SetTrigger( "Attack" );
+			Collider[] colliders = Physics.OverlapSphere( transform.position, attackRange, enemyLayer );
+			foreach( Collider collider in colliders ) {
+				collider.gameObject.GetComponent<EnemyAI>().TakeDamage( damage );
+			}
 		}
 	}
 }

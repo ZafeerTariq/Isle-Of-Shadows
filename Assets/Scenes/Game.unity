@@ -1528,63 +1528,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9341b4681330ff4784952c0e276f1f6, type: 3}
---- !u!1001 &8240980667767765025
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 15.86
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 11.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2487205080590130710, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4936104533777910662, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
-      propertyPath: m_Name
-      value: Rock Golem Parent
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f1444a662bfaee544bd167fe81a797ff, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1599,4 +1542,3 @@ SceneRoots:
   - {fileID: 4629386675213406587}
   - {fileID: 637419989}
   - {fileID: 1117852676}
-  - {fileID: 8240980667767765025}

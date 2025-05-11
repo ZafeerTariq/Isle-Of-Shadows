@@ -199,5 +199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   damage: 10
+  attackRange: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
   attackCooldown: 0.7
   healthBarImage: {fileID: 0}
