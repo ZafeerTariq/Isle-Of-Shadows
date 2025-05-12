@@ -4,16 +4,22 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 	public GameObject player;
 	private PlayerCombat playerCombatScript;
-	private PlayerController playerControllerScript;
 
 	public GameObject gameOverScreen;
+	public GameObject mainMenuButton;
 
 	void Start() {
 		playerCombatScript = player.GetComponent<PlayerCombat>();
-		playerControllerScript = player.GetComponent<PlayerController>();
 
 		playerCombatScript.onDeath += GameOver;
 		gameOverScreen.SetActive( false );
+		mainMenuButton.SetActive( false );
+	}
+
+	void Update() {
+		if( Input.GetKeyDown( KeyCode.Escape ) ) {
+			mainMenuButton.SetActive( !mainMenuButton.activeSelf );
+		}
 	}
 
 	private void GameOver() {
