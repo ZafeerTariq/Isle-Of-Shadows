@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,6 @@ public class PlayerCombat : MonoBehaviour {
 	[SerializeField] private int damage;
 	public int attackRange;
 	public LayerMask enemyLayer;
-
-	private bool isAlive;
 
 	public float attackCooldown;
 	private float timeSinceLastAttack;
@@ -23,8 +22,9 @@ public class PlayerCombat : MonoBehaviour {
 	private GameObject equippedWeapon = null;
 	private float weaponMultiplier = 1f;
 
+	public event Action onDeath;
+
 	void Start() {
-		isAlive = true;
 		timeSinceLastAttack = 0f;
 		healthBarMat = healthBarImage.material;
 		healthBarMat.SetFloat( "_Health", health );
@@ -40,7 +40,7 @@ public class PlayerCombat : MonoBehaviour {
 
 	public void TakeDamage( int damage ) {
 		health -= damage;
-		if( health <= 0 ) isAlive = false;
+		if( health <= 0 ) onDeath.Invoke();
 		else healthBarMat.SetFloat( "_Health", health );
 	}
 
