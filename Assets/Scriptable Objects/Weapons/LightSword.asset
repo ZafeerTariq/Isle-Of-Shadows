@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: LightSword
   m_EditorClassIdentifier: 
   weaponName: Light Sword
-  prefab: {fileID: 0}
+  prefab: {fileID: 5181494411761360807, guid: 954d14c31eb07be43ab10dfece73ad6f, type: 3}
   requirements:
   - resource: 0
     amount: 10
   - resource: 1
     amount: 5
+  multiplier: 0

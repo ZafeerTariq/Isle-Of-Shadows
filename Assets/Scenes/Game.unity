@@ -1502,6 +1502,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2065985931 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1149118628585881180, guid: e9341b4681330ff4784952c0e276f1f6, type: 3}
+  m_PrefabInstance: {fileID: 4629386675213406587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4629386675213406587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1558,6 +1563,10 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 971565921}
+    - target: {fileID: 5942083694091490272, guid: e9341b4681330ff4784952c0e276f1f6, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 2065985931}
     - target: {fileID: 5942083694091490272, guid: e9341b4681330ff4784952c0e276f1f6, type: 3}
       propertyPath: healthBarImage
       value: 

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: HeavySword
   m_EditorClassIdentifier: 
   weaponName: Heavy Sword
-  prefab: {fileID: 0}
+  prefab: {fileID: 6003890195484591237, guid: 4bdb9710293981c468a1184a47bd08df, type: 3}
   requirements:
   - resource: 0
     amount: 40
   - resource: 1
     amount: 20
+  multiplier: 0

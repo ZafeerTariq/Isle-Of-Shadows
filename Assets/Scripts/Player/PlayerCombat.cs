@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour {
 	[SerializeField] private int health;
 	[SerializeField] private int damage;
-	private float weaponMultiplier = 1f;
 	public int attackRange;
 	public LayerMask enemyLayer;
 
@@ -19,6 +18,10 @@ public class PlayerCombat : MonoBehaviour {
 	private Material healthBarMat;
 
 	private Animator animator;
+
+	public Transform weaponSlot;
+	private GameObject equippedWeapon = null;
+	private float weaponMultiplier = 1f;
 
 	void Start() {
 		isAlive = true;
@@ -55,6 +58,16 @@ public class PlayerCombat : MonoBehaviour {
 	public void EquipWeapon( WeaponScriptableObject weapon ) {
 		if( inventory.Check( weapon ) ) {
 			weaponMultiplier = weapon.multiplier;
+
+			Vector3 position	= new Vector3( 0.074f, 0.068f, 0.074f );
+			Quaternion rotation	= Quaternion.Euler( 0, -45, -62.5f );
+			Vector3 scale		= new Vector3( 0.5f, 0.5f, 0.5f );
+
+			if( equippedWeapon ) Destroy( equippedWeapon );
+			equippedWeapon = Instantiate( weapon.prefab, weaponSlot );
+			equippedWeapon.transform.localPosition	= position;
+			equippedWeapon.transform.localRotation	= rotation;
+			equippedWeapon.transform.localScale		= scale;
 		}
 	}
 }
