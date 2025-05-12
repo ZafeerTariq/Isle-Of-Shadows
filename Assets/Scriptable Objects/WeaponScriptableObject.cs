@@ -6,6 +6,7 @@ public class WeaponScriptableObject : ScriptableObject {
 	public string weaponName;
 	public GameObject prefab;
 	public List<ResourceRequirements> requirements;
+	public float multiplier;
 }
 
 [System.Serializable]

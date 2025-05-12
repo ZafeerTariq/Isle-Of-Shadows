@@ -51,7 +51,7 @@ public class CraftingMenu : MonoBehaviour {
 			foreach( var requirement in weapon.requirements ) {
 				inventory.TryRemoveResource( requirement.resource, requirement.amount );
 			}
-			Debug.Log( weapon.weaponName + " crafted!" );
+			inventory.AddWeapon( weapon );
 		}
 	}
 }

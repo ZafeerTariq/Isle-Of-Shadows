@@ -34,7 +34,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FullThreshold: 80
-    - _Health: 90
+    - _Health: 100
     - _LowThreshold: 20
     m_Colors:
     - _FullColor: {r: 0, g: 1, b: 0, a: 1}

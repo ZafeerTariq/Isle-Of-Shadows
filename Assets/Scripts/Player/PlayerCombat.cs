@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour {
 	[SerializeField] private int health;
 	[SerializeField] private int damage;
+	private float weaponMultiplier = 1f;
 	public int attackRange;
 	public LayerMask enemyLayer;
 
@@ -11,6 +12,8 @@ public class PlayerCombat : MonoBehaviour {
 
 	public float attackCooldown;
 	private float timeSinceLastAttack;
+
+	public Inventory inventory;
 
 	public RawImage healthBarImage;
 	private Material healthBarMat;
@@ -46,6 +49,12 @@ public class PlayerCombat : MonoBehaviour {
 			foreach( Collider collider in colliders ) {
 				collider.gameObject.GetComponent<EnemyAI>().TakeDamage( damage );
 			}
+		}
+	}
+
+	public void EquipWeapon( WeaponScriptableObject weapon ) {
+		if( inventory.Check( weapon ) ) {
+			weaponMultiplier = weapon.multiplier;
 		}
 	}
 }
