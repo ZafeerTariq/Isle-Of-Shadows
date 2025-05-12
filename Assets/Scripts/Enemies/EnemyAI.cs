@@ -24,7 +24,6 @@ public class EnemyAI : MonoBehaviour {
 	private float timeSinceLastAttack = 0;
 	public int health;
 	public int damage;
-	private bool isAlive;
 
 	private Animator animator;
 
@@ -107,6 +106,6 @@ public class EnemyAI : MonoBehaviour {
 
 	public void TakeDamage( int damage ) {
 		health -= damage;
-		if( health <= 0 ) { isAlive = false; Destroy( gameObject ); }
+		if( health <= 0 ) Destroy( gameObject );
 	}
 }

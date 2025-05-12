@@ -117,5 +117,23 @@ public class MeshGenerator : MonoBehaviour {
 
 		// Texture2D texture = TextureGenerator.TextureFromColorMap( colorMap, xSize + 1, zSize + 1 );
 		// GetComponent<MeshRenderer>().sharedMaterial.mainTexture = texture;
+
+		GameObject wall = new GameObject( "wall" );
+
+		BoxCollider bottom = wall.AddComponent<BoxCollider>();
+		bottom.center = new Vector3( (xSize + 1) / 2f, 0, 0 );
+		bottom.size 	= new Vector3( xSize + 1, 35, 0 );
+
+		BoxCollider top = wall.AddComponent<BoxCollider>();
+		top.center = new Vector3( (xSize + 1) / 2f, 0, zSize + 1 );
+		top.size 	= new Vector3( xSize + 1, 35, 0 );
+
+		BoxCollider left = wall.AddComponent<BoxCollider>();
+		left.center = new Vector3( 0, 0, (zSize + 1) / 2f );
+		left.size 	= new Vector3( 0, 35, zSize + 1 );
+
+		BoxCollider right = wall.AddComponent<BoxCollider>();
+		right.center = new Vector3( xSize + 1, 0, (zSize + 1) / 2f );
+		right.size 	= new Vector3( 0, 35, zSize + 1 );
 	}
 }
